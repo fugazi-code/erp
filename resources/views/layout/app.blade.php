@@ -17,7 +17,18 @@
             </aside>
         </div>
         <div class="contents">
-            {{ $slot }}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb-main">
+                            <h4 class="text-capitalize breadcrumb-title">
+                                @stack('breadcrumb-main')
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                {{ $slot }}
+            </div>
         </div>
         <footer class="footer-wrapper">
             @include('partials._footer')

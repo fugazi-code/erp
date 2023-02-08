@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,6 +23,11 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admin'),
         ]);
 
-        \App\Models\User::factory(10)->create();
+        Organization::factory(5)
+            ->count(5)
+            ->hasUsers(10, function (array $attributes, Organization $org) {
+                return ['organization_id' => $org->id];
+            })
+            ->create();
     }
 }
