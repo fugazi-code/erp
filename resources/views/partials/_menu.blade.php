@@ -15,6 +15,7 @@
                 <span class="toggle-icon"></span>
             </a>
             <ul>
+                <li class="{{ Request::is('users/organizations') ? 'active':'' }}"><a href="{{ route('users.organizations') }}">{{ __('Organization')}}</a></li>
                 <li class="{{ Request::is('users/accounts') ? 'active':'' }}"><a href="{{ route('users.accounts') }}">{{ __('Users')}}</a></li>
             </ul>
         </li>
