@@ -1,6 +1,6 @@
 <div>
     @push('breadcrumb-main')
-        Account List
+        Product List
     @endpush
     <div class="row">
         <div class="col-md-12">

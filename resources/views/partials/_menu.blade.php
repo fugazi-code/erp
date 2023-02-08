@@ -8,6 +8,19 @@
             </a>
         </li>
 
+        <li class="has-child {{ Request::is('products/*') ? 'open':'' }}">
+            <a href="#" class="{{ Request::is('products/*') ? 'active':'' }}">
+                <span class="nav-icon uil uil-box"></span>
+                <span class="menu-text">{{ __('Products') }}</span>
+                <span class="toggle-icon"></span>
+            </a>
+            <ul>
+                <li class="{{ Request::is('products/list') ? 'active':'' }}">
+                    <a href="{{ route('products.list') }}">{{ __('Product List')}}</a>
+                </li>
+            </ul>
+        </li>
+
         <li class="has-child {{ Request::is('users/*') ? 'open':'' }}">
             <a href="#" class="{{ Request::is('users/*') ? 'active':'' }}">
                 <span class="nav-icon uil uil-users-alt"></span>
@@ -15,8 +28,8 @@
                 <span class="toggle-icon"></span>
             </a>
             <ul>
-                <li class="{{ Request::is('users/organizations') ? 'active':'' }}"><a href="{{ route('users.organizations') }}">{{ __('Organization')}}</a></li>
-                <li class="{{ Request::is('users/accounts') ? 'active':'' }}"><a href="{{ route('users.accounts') }}">{{ __('Users')}}</a></li>
+                <li class="{{ Request::is('users/organizations') ? 'active':'' }}"><a href="{{ route('users.organizations') }}">{{ __('Organization List')}}</a></li>
+                <li class="{{ Request::is('users/accounts') ? 'active':'' }}"><a href="{{ route('users.accounts') }}">{{ __('Account List')}}</a></li>
             </ul>
         </li>
     </ul>
