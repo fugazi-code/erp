@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\AccountsLivewire;
+use App\Http\Livewire\CategoryLivewire;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\DashboardLivewire;
 use App\Http\Livewire\OrganizationLivewire;
@@ -10,6 +11,7 @@ Route::get('/home', DashboardLivewire::class)->name('home');
 
 Route::prefix('products')->group(function(){
     Route::get('/list', ProductLivewire::class)->name('products.list');
+    Route::get('/category', CategoryLivewire::class)->name('category.list');
 });
 
 Route::prefix('users')->group(function(){

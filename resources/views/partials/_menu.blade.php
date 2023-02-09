@@ -18,6 +18,9 @@
                 <li class="{{ Request::is('products/list') ? 'active':'' }}">
                     <a href="{{ route('products.list') }}">{{ __('Product List')}}</a>
                 </li>
+                <li class="{{ Request::is('products/category') ? 'active':'' }}">
+                    <a href="{{ route('category.list') }}">{{ __('Category List')}}</a>
+                </li>
             </ul>
         </li>
 

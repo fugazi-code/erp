@@ -2,24 +2,21 @@
 
 namespace App\Http\Livewire\Table;
 
-use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
-class ProductsTable extends DataTableComponent
+class CategoriesTable extends DataTableComponent
 {
     public function builder(): Builder
     {
-        return Product::query()
+        return Category::query()
             ->with([
-                'category:name',
-                'subCategory:name',
-                'brand:name',
-                'createdBy:name'
+                'createdBy:name',
             ]);
     }
-    
+
     public function configure(): void
     {
         $this->setPrimaryKey('id');
@@ -29,26 +26,14 @@ class ProductsTable extends DataTableComponent
     {
         return [
             Column::make("Id", "id")->sortable()->isHidden(),
-            Column::make("Category", "category.name")
-                ->searchable()
-                ->sortable(),
-            Column::make("Sub category", "subCategory.name")
-                ->searchable()
-                ->sortable(),
-            Column::make("Brand", "brand.name")
-                ->searchable()
-                ->sortable(),
             Column::make("Name", "name")
                 ->searchable()
                 ->sortable(),
-            Column::make("Sku", "sku")
+            Column::make("Code", "code")
                 ->searchable()
                 ->sortable(),
-            Column::make("Price", "price")
-                ->sortable(),
-            Column::make("Unit", "unit")
-                ->sortable(),
-            Column::make("Qty", "qty")
+            Column::make("Description", "description")
+                ->searchable()
                 ->sortable(),
             Column::make("Created by", "createdBy.name")
                 ->sortable(),
