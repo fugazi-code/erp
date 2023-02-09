@@ -2,23 +2,19 @@
 
 namespace App\Http\Livewire\Table;
 
-use App\Models\Category;
-use App\Models\SubCategory;
+use App\Models\Brand;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
-class SubCategoriesTable extends DataTableComponent
+class BrandTable extends DataTableComponent
 {
     public function builder(): Builder
     {
-        return SubCategory::query()
-            ->with([
-                'category:name',
-                'createdBy:name',
-            ]);
+        return Brand::query()
+            ->with(['createdBy:name',]);
     }
-    
+
     public function configure(): void
     {
         $this->setPrimaryKey('id');
@@ -28,18 +24,10 @@ class SubCategoriesTable extends DataTableComponent
     {
         return [
             Column::make("Id", "id")
-                ->sortable()
-                ->isHidden(),
-            Column::make("Name", "name")
-                ->searchable()
                 ->sortable(),
-            Column::make("Category", "category.name")
-                ->searchable()
+            Column::make("Name", "name")
                 ->sortable(),
             Column::make("Description", "description")
-                ->searchable()
-                ->sortable(),
-            Column::make("Created by", "createdBy.name")
                 ->sortable(),
             Column::make("Created at", "created_at")
                 ->sortable(),

@@ -24,6 +24,9 @@
                 <li class="{{ Request::is('products/sub-category') ? 'active':'' }}">
                     <a href="{{ route('sub-category.list') }}">{{ __('Sub Category List')}}</a>
                 </li>
+                <li class="{{ Request::is('products/brand') ? 'active':'' }}">
+                    <a href="{{ route('brand.list') }}">{{ __('Brand List')}}</a>
+                </li>
             </ul>
         </li>
 
