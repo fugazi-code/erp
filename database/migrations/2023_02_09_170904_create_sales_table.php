@@ -15,6 +15,14 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->integer('customer_id')->nullable();
+            $table->integer('supplier_id')->nullable();
+            $table->date('sale_date')->nullable();
+            $table->float('order_tax');
+            $table->float('discount');
+            $table->float('shipping');
+            $table->string('status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

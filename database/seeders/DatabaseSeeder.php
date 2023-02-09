@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Customer;
+use App\Models\Supplier;
 use App\Models\Organization;
 use Illuminate\Database\Seeder;
 
@@ -28,5 +30,8 @@ class DatabaseSeeder extends Seeder
         Category::factory(10)->hasSubCategory(5)->create();
         Brand::factory(5)->create();
         Product::factory(200)->create();
+
+        Customer::factory(10)->create();
+        Supplier::factory(10)->create();
     }
 }
