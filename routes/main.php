@@ -9,6 +9,7 @@ use App\Http\Livewire\DashboardLivewire;
 use App\Http\Livewire\OrganizationLivewire;
 use App\Http\Livewire\ProductLivewire;
 use App\Http\Livewire\SubCategoryLivewire;
+use App\Http\Livewire\SupplierLivewire;
 
 Route::get('/home', DashboardLivewire::class)->name('home');
 
@@ -21,6 +22,7 @@ Route::prefix('products')->group(function(){
 
 Route::prefix('people')->group(function(){
     Route::get('/customer', CustomerLivewire::class)->name('people.customer');
+    Route::get('/supplier', SupplierLivewire::class)->name('people.supplier');
 });
 
 Route::prefix('users')->group(function(){

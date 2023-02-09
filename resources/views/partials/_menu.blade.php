@@ -48,7 +48,12 @@
                 <span class="toggle-icon"></span>
             </a>
             <ul>
-                <li class="{{ Request::is('people/customer') ? 'active':'' }}"><a href="{{ route('people.customer') }}">{{ __('Customer List')}}</a></li>
+                <li class="{{ Request::is('people/customer') ? 'active':'' }}">
+                    <a href="{{ route('people.customer') }}">{{ __('Customer List')}}</a>
+                </li>
+                <li class="{{ Request::is('people/supplier') ? 'active':'' }}">
+                    <a href="{{ route('people.supplier') }}">{{ __('Supplier List')}}</a>
+                </li>
             </ul>
         </li>
 
