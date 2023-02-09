@@ -41,6 +41,17 @@
             </ul>
         </li>
 
+        <li class="has-child {{ Request::is('people/*') ? 'open':'' }}">
+            <a href="#" class="{{ Request::is('people/*') ? 'active':'' }}">
+                <span class="nav-icon uil uil-user-arrows"></span>
+                <span class="menu-text">{{ __('People') }}</span>
+                <span class="toggle-icon"></span>
+            </a>
+            <ul>
+                <li class="{{ Request::is('people/customer') ? 'active':'' }}"><a href="{{ route('people.customer') }}">{{ __('Customer List')}}</a></li>
+            </ul>
+        </li>
+
         <li class="has-child {{ Request::is('users/*') ? 'open':'' }}">
             <a href="#" class="{{ Request::is('users/*') ? 'active':'' }}">
                 <span class="nav-icon uil uil-users-alt"></span>
