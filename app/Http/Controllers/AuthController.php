@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Validator;
 use Auth;
+use Validator;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class AuthController extends Controller {
-    
+
     /**
      * Display login of the resource.
      *
@@ -45,7 +47,7 @@ class AuthController extends Controller {
     /**
      * make the user able to register
      *
-     * @return 
+     * @return
      */
     public function signup(Request $request){
         $validators=Validator::make($request->all(),[
@@ -62,14 +64,14 @@ class AuthController extends Controller {
             $user->password = bcrypt($request->password);
             $user->save();
             auth()->login($user);
-            return redirect()->intended(route('dashboard.demo_one','en'))->with('message','Registration was successfull !');            
+            return redirect()->intended(route('dashboard.demo_one','en'))->with('message','Registration was successfull !');
         }
     }
 
     /**
      * make the user able to login
      *
-     * @return 
+     * @return
      */
     public function authenticate(Request $request){
         $validators=Validator::make($request->all(),[
@@ -80,7 +82,7 @@ class AuthController extends Controller {
             return redirect()->route('login')->withErrors($validators)->withInput();
         }else{
             if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
-                return redirect()->intended(route('dashboard.demo_one','en'))->with('message','Welcome back !');
+                return redirect()->intended(route(RouteServiceProvider::HOME))->with('message','Welcome back !');
             }else{
                 return redirect()->route('login')->with('message','Login failed !Email/Password is incorrect !');
             }
@@ -90,10 +92,10 @@ class AuthController extends Controller {
     /**
      * make the user able to logout
      *
-     * @return 
+     * @return
      */
-    public function logout(){  
-        Auth::logout(); 
-        return redirect()->route('login')->with('message','Successfully Logged out !');       
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('login')->with('message','Successfully Logged out !');
     }
 }
