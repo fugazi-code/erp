@@ -30,6 +30,17 @@
             </ul>
         </li>
 
+        <li class="has-child {{ Request::is('sales/*') ? 'open':'' }}">
+            <a href="#" class="{{ Request::is('sales/*') ? 'active':'' }}">
+                <span class="nav-icon uil uil-calculator"></span>
+                <span class="menu-text">{{ __('Sales') }}</span>
+                <span class="toggle-icon"></span>
+            </a>
+            <ul>
+
+            </ul>
+        </li>
+
         <li class="has-child {{ Request::is('users/*') ? 'open':'' }}">
             <a href="#" class="{{ Request::is('users/*') ? 'active':'' }}">
                 <span class="nav-icon uil uil-users-alt"></span>
