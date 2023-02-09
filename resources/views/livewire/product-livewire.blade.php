@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <livewire:table.accounts-table/>
+                    <livewire:table.products-table/>
                 </div>
             </div>
         </div>
