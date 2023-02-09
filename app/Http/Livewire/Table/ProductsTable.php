@@ -29,14 +29,19 @@ class ProductsTable extends DataTableComponent
         return [
             Column::make("Id", "id")->sortable()->isHidden(),
             Column::make("Category", "category.name")
+                ->searchable()
                 ->sortable(),
             Column::make("Sub category", "subCategory.name")
+                ->searchable()
                 ->sortable(),
             Column::make("Brand", "brand.name")
+                ->searchable()
                 ->sortable(),
             Column::make("Name", "name")
+                ->searchable()
                 ->sortable(),
             Column::make("Sku", "sku")
+                ->searchable()
                 ->sortable(),
             Column::make("Price", "price")
                 ->sortable(),
