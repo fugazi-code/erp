@@ -1,7 +1,9 @@
 <?php
 
+namespace App\Enums;
+
 enum SalesStatusEnum: string
 {
-    case PROCESSED = 'processed';
-    case DRAFT = 'draft';
+    case COMPLETED = 'completed';
+    case PENDING = 'pending';
 }

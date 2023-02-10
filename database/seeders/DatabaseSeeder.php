@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Sale;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Product;
@@ -33,5 +34,6 @@ class DatabaseSeeder extends Seeder
 
         Customer::factory(10)->create();
         Supplier::factory(10)->create();
+        Sale::factory(50)->create();
     }
 }

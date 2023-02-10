@@ -22,6 +22,7 @@ return new class extends Migration
             $table->float('discount');
             $table->float('shipping');
             $table->string('status');
+            $table->string('payment');
             $table->softDeletes();
             $table->timestamps();
         });

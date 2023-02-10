@@ -17,6 +17,7 @@ class Sale extends Model
         "discount",
         "shipping",
         "status",
+        "payment"
     ];
 
     public function orders()
