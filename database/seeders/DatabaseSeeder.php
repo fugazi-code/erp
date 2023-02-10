@@ -34,6 +34,6 @@ class DatabaseSeeder extends Seeder
 
         Customer::factory(10)->create();
         Supplier::factory(10)->create();
-        Sale::factory(50)->create();
+        Sale::factory(50)->hasOrders(10)->create();
     }
 }

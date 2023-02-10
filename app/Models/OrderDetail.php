@@ -9,6 +9,17 @@ class OrderDetail extends Model
 {
     use HasFactory;
 
+    protected $fillable =[
+        'product_id',
+        'qty',
+        'price',
+        'discount',
+        'tax',
+        'sub_total',
+        'orderable_id',
+        'orderable_type'
+    ];
+    
     public function orderable()
     {
         return $this->morphTo();

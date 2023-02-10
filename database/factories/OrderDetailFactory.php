@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,17 @@ class OrderDetailFactory extends Factory
      */
     public function definition()
     {
+        $price = $this->faker->numberBetween(1,500);
+        $discount = $this->faker->numberBetween(1,10);
+        $tax = $this->faker->numberBetween(1,10);
+
         return [
-            //
+            'product_id' => Product::query()->inRandomOrder()->first()->id,
+            'qty' => 0,
+            'price' => $price,
+            'discount' => $discount,
+            'tax' => $tax,
+            'sub_total' => $price + $discount + $tax,
         ];
     }
 }
