@@ -37,6 +37,9 @@
                 <span class="toggle-icon"></span>
             </a>
             <ul>
+                <li class="{{ Request::is('sales/pos') ? 'active':'' }}">
+                    <a href="{{ route('sales.pos') }}">{{ __('POS')}}</a>
+                </li>
                 <li class="{{ Request::is('sales/list') ? 'active':'' }}">
                     <a href="{{ route('sales.list') }}">{{ __('Sale List')}}</a>
                 </li>

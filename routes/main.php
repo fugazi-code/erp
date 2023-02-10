@@ -7,6 +7,7 @@ use App\Http\Livewire\CustomerLivewire;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\DashboardLivewire;
 use App\Http\Livewire\OrganizationLivewire;
+use App\Http\Livewire\PointOfSaleLivewire;
 use App\Http\Livewire\ProductLivewire;
 use App\Http\Livewire\SaleLivewire;
 use App\Http\Livewire\SubCategoryLivewire;
@@ -23,6 +24,7 @@ Route::prefix('products')->group(function(){
 
 Route::prefix('sales')->group(function(){
     Route::get('/list', SaleLivewire::class)->name('sales.list');
+    Route::get('/pos', PointOfSaleLivewire::class)->name('sales.pos');
 });
 
 Route::prefix('people')->group(function(){
