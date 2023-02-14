@@ -1,5 +1,5 @@
 @include('partials._header')
-<body class="layout-light side-menu">
+<body class="layout-light loaded top-menu">
     <div class="mobile-author-actions"></div>
     <header class="header-top">
         @include('partials._top_nav')
@@ -42,5 +42,6 @@
     <script src="{{ asset('assets/js/plugins.min.js') }}"></script>
     <script src="{{ asset('assets/js/script.min.js') }}"></script>
     <script src="{{ asset('js/app.min.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>
