@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire\Table;
 
+use App\Http\Livewire\Table\Abstract\DataTableComponentCustom;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
-class ProductsTable extends DataTableComponent
+class ProductsTable extends DataTableComponentCustom
 {
     public function builder(): Builder
     {
@@ -18,11 +18,6 @@ class ProductsTable extends DataTableComponent
                 'brand:name',
                 'createdBy:name'
             ]);
-    }
-    
-    public function configure(): void
-    {
-        $this->setPrimaryKey('id');
     }
 
     public function columns(): array

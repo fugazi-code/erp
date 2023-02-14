@@ -2,21 +2,16 @@
 
 namespace App\Http\Livewire\Table;
 
+use App\Http\Livewire\Table\Abstract\DataTableComponentCustom;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
-class AccountsTable extends DataTableComponent
+class AccountsTable extends DataTableComponentCustom
 {
     public function builder(): Builder
     {
         return User::query()->with(['organization']);
-    }
-
-    public function configure(): void
-    {
-        $this->setPrimaryKey('id');
     }
 
     public function columns(): array
@@ -25,11 +20,14 @@ class AccountsTable extends DataTableComponent
             Column::make("Id", "id")
                 ->sortable(),
             Column::make("Name", "name")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Email", "email")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Organization", "organization.name")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Created at", "created_at")
                 ->sortable(),
             Column::make("Updated at", "updated_at")

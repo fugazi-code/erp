@@ -2,13 +2,12 @@
 
 namespace App\Http\Livewire\Table;
 
-use App\Models\Category;
+use App\Http\Livewire\Table\Abstract\DataTableComponentCustom;
 use App\Models\SubCategory;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
-class SubCategoriesTable extends DataTableComponent
+class SubCategoriesTable extends DataTableComponentCustom
 {
     public function builder(): Builder
     {
@@ -17,11 +16,6 @@ class SubCategoriesTable extends DataTableComponent
                 'category:name',
                 'createdBy:name',
             ]);
-    }
-    
-    public function configure(): void
-    {
-        $this->setPrimaryKey('id');
     }
 
     public function columns(): array

@@ -2,18 +2,13 @@
 
 namespace App\Http\Livewire\Table;
 
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use App\Http\Livewire\Table\Abstract\DataTableComponentCustom;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Supplier;
 
-class SuppliersTable extends DataTableComponent
+class SuppliersTable extends DataTableComponentCustom
 {
     protected $model = Supplier::class;
-
-    public function configure(): void
-    {
-        $this->setPrimaryKey('id');
-    }
 
     public function columns(): array
     {

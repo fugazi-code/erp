@@ -2,18 +2,13 @@
 
 namespace App\Http\Livewire\Table;
 
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use App\Http\Livewire\Table\Abstract\DataTableComponentCustom;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Sale;
 
-class SalesTable extends DataTableComponent
+class SalesTable extends DataTableComponentCustom
 {
     protected $model = Sale::class;
-
-    public function configure(): void
-    {
-        $this->setPrimaryKey('id');
-    }
 
     public function columns(): array
     {

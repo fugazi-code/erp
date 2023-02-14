@@ -2,22 +2,17 @@
 
 namespace App\Http\Livewire\Table;
 
+use App\Http\Livewire\Table\Abstract\DataTableComponentCustom;
 use App\Models\Brand;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
-class BrandTable extends DataTableComponent
+class BrandTable extends DataTableComponentCustom
 {
     public function builder(): Builder
     {
         return Brand::query()
             ->with(['createdBy:name',]);
-    }
-
-    public function configure(): void
-    {
-        $this->setPrimaryKey('id');
     }
 
     public function columns(): array

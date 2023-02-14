@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire\Table;
 
+use App\Http\Livewire\Table\Abstract\DataTableComponentCustom;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
-class CategoriesTable extends DataTableComponent
+class CategoriesTable extends DataTableComponentCustom
 {
     public function builder(): Builder
     {
@@ -15,11 +15,6 @@ class CategoriesTable extends DataTableComponent
             ->with([
                 'createdBy:name',
             ]);
-    }
-
-    public function configure(): void
-    {
-        $this->setPrimaryKey('id');
     }
 
     public function columns(): array
