@@ -1,5 +1,6 @@
 @include('partials._header')
 <body class="layout-light loaded top-menu">
+    <x-livewire-alert::scripts />
     <div class="mobile-author-actions"></div>
     <header class="header-top">
         @include('partials._top_nav')
@@ -42,6 +43,7 @@
     <script src="{{ asset('assets/js/plugins.min.js') }}"></script>
     <script src="{{ asset('assets/js/script.min.js') }}"></script>
     <script src="{{ asset('js/app.min.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @stack('scripts')
 </body>
 </html>

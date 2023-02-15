@@ -16,8 +16,14 @@ abstract class DataTableComponentCustom extends DataTableComponent
             return [
                 'class' => 'bg-gray-200',
                 'data-bs-toggle' => "modal",
-                'data-bs-target' => "#crudModal"
+                'data-bs-target' => "#crudModal",
+                'wire:click' => "bind({$row->id})"
             ];
         });
+    }
+
+    public function bind($id)
+    {
+        $this->emit('bind', $id);
     }
 }

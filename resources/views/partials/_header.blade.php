@@ -17,5 +17,14 @@
     @livewireStyles
     <style>
         [x-cloak] { display: none !important; }
+        .header-top{
+            z-index: 20;
+        }
+        .sidebar-wrapper {
+            z-index: 19;
+        }
+        .modal-backdrop {
+            z-index: 23;
+        }
     </style>
 </head>
