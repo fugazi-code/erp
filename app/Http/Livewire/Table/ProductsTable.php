@@ -39,7 +39,9 @@ class ProductsTable extends DataTableComponentCustom
             Column::make("Sku", "sku")
                 ->searchable()
                 ->sortable(),
-            Column::make("Price", "price")
+            Column::make("Price", "selling_price")
+                ->sortable(),
+            Column::make("Price", "vendor_price")
                 ->sortable(),
             Column::make("Unit", "unit")
                 ->sortable(),
