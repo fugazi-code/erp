@@ -46,6 +46,11 @@ class PointOfSaleLivewire extends Component
             ];
         }
 
+        $this->countItemsInCart();
+    }
+
+    public function countItemsInCart()
+    {
         $this->totalItems = 0;
         foreach($this->cart as $item){
             $this->totalItems += $item['count'];
@@ -56,5 +61,14 @@ class PointOfSaleLivewire extends Component
     {
         $this->totalItems = 0;
         $this->cart = [];
+    }
+
+    public function removeFromCart($id)
+    {
+        $this->cart = array_filter($this->cart, function($k) use ($id) {
+            return $k != $id;
+        }, ARRAY_FILTER_USE_KEY);
+        
+        $this->countItemsInCart();
     }
 }

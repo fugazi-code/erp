@@ -56,7 +56,7 @@
                             <div class="overflow-auto w-100" style="height: 250px; width:100%">
                                 @foreach ($cart as $id => $item)
                                     <div class="row w-100 mb-2">
-                                        <div class="col-4 font-weight-bold">
+                                        <div class="col-3 font-weight-bold">
                                             <div class="font-">
                                                 {{ $item['details']['name'] }}
                                             </div>
@@ -67,7 +67,10 @@
                                         <div class="col-3">x{{ $item['count'] }}</div>
                                         <div class="col-3">{{ $item['price'] }}</div>
                                         <div class="col-3">
-                                            {{ $item['price'] }}
+                                            <button wire:click='removeFromCart({{ $id }})'
+                                                class="btn btn-default btn-squared color-danger btn-outline-danger border-0 py-2 px-auto">
+                                                <i class="fas fa-trash-alt me-0"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 @endforeach
