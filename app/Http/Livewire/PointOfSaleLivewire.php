@@ -38,8 +38,10 @@ class PointOfSaleLivewire extends Component
         if (isset($this->cart[$productId])) {
             $this->cart[$productId]['count'] += 1;
         } else {
+            $product = Product::find($productId)->toArray();
             $this->cart[$productId] = [
-                'details' => Product::find($productId)->toArray(),
+                'details' => $product,
+                'price' => $product['selling_price'],
                 'count' => 1
             ];
         }

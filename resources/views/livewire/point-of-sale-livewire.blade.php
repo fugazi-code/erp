@@ -20,9 +20,9 @@
                         @if ($products)
                             <div class="row">
                                 @foreach ($products as $product)
-                                    <div class="col-md-3 mb-2">
+                                    <div class="col-md-3 mb-2 ">
                                         <a href="#"
-                                            class="btn btn-outline-secondary w-100 py-3 d-flex flex-column"
+                                            class="bg-white shadow btn btn-outline-link w-100 py-3 d-flex flex-column"
                                             wire:click='addToCart({{ $product->id }})'>
                                             <h5>{{ $product->name }}</h5>
                                             <label class="text-muted">{{ $product->subCategory->name }}</label>
@@ -37,25 +37,46 @@
             </div>
         </div>
         <div class="col-md-5">
-            <div class="d-flex align-items-start flex-column bd-highlight mb-3 h-100">
-                <div class="p-2 bd-highlight d-flex flex-column w-100">
-                    <div>
-                        <h3>Orders</h3>
-                    </div>
-                    <div class="mb-3 d-flex flex-row justify-content-between">
-                        <small>Total Items: {{ $totalItems }}</small>
-                        <button wire:click='clearOrders' type="button"
-                            class="btn btn-sm btn-outline-link text-danger p-0">Clear All</button>
-                    </div>
-                    @foreach ($cart as $id => $item)
-                        <div class="d-flex flex-row justify-content-between">
-                            <div>{{ $item['details']['name'] }}</div>
-                            <div>x{{ $item['count'] }} {{ $item['details']['selling_price'] }}</div>
+            <div>
+                <h3>Orders</h3>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-start flex-column bd-highlight mb-3 h-100">
+                        <div class="p-2 bd-highlight d-flex flex-column w-100">
+                            <div class="mb-3 d-flex flex-row justify-content-between">
+                                <div class="tag-box">
+                                    <div class="dm-tag tag-secondary tag-transparented">
+                                        Total Items: {{ $totalItems }}
+                                    </div>
+                                </div>
+                                <button wire:click='clearOrders' type="button"
+                                    class="btn btn-sm btn-outline-link text-danger p-0">Clear All</button>
+                            </div>
+                            <div class="overflow-auto w-100" style="height: 250px; width:100%">
+                                @foreach ($cart as $id => $item)
+                                    <div class="row w-100 mb-2">
+                                        <div class="col-4 font-weight-bold">
+                                            <div class="font-">
+                                                {{ $item['details']['name'] }}
+                                            </div>
+                                            <div class="badge badge-round badge-success badge-lg">
+                                                {{ $item['details']['sku'] }}
+                                            </div>
+                                        </div>
+                                        <div class="col-3">x{{ $item['count'] }}</div>
+                                        <div class="col-3">{{ $item['price'] }}</div>
+                                        <div class="col-3">
+                                            {{ $item['price'] }}
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
-                    @endforeach
-                </div>
-                <div class="mb-auto p-2 bd-highlight w-100">
-                    <button class="btn btn-success btn-block" type="button">Checkout</button>
+                        <div class="mb-auto p-2 bd-highlight w-100">
+                            <button class="btn btn-success btn-block" type="button">Checkout</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
