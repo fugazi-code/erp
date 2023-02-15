@@ -29,7 +29,8 @@ class ProductFactory extends Factory
             'brand_id' => $brand->id,
             'name' => $this->faker->word(),
             'sku' => $this->faker->buildingNumber(),
-            'price' => $this->faker->numberBetween(0, 1000),
+            'selling_price' => $this->faker->numberBetween(0, 1000),
+            'vendor_price' => $this->faker->numberBetween(0, 1000),
             'unit' => 'pc',
             'qty' => 0,
             'created_by' => 1

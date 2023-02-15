@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('sku');
             $table->integer('brand_id');
-            $table->float('price');
+            $table->float('selling_price');
+            $table->float('vendor_price');
             $table->string('unit');
             $table->integer('qty');
             $table->string('created_by');
