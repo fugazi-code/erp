@@ -20,7 +20,7 @@
                         @if ($products)
                             <div class="row">
                                 @foreach ($products as $product)
-                                    <div class="col-md-3 mb-2 ">
+                                    <div class="col-md-3 mb-2  px-1">
                                         <a href="#"
                                             class="bg-white shadow btn btn-outline-link w-100 py-3 d-flex flex-column"
                                             wire:click='addToCart({{ $product->id }})'>
@@ -74,6 +74,14 @@
                                         </div>
                                     </div>
                                 @endforeach
+                            </div>
+                            <div class="mb-3 d-flex flex-row justify-content-between">
+                                <label>
+                                    Sub-Total
+                                </label>
+                                <label class="font-weight-bold">
+                                    000
+                                </label>
                             </div>
                         </div>
                         <div class="mb-auto p-2 bd-highlight w-100">
