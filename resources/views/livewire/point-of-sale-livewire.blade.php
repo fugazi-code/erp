@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="col-3">x{{ $item['count'] }}</div>
                                         <div class="col-3">{{ $item['price'] }}</div>
-                                        <div class="col-3">
+                                        <div class="col-3 d-flex justify-content-center">
                                             <button wire:click='removeFromCart({{ $id }})'
                                                 class="btn btn-default btn-squared color-danger btn-outline-danger border-0 py-2 px-auto">
                                                 <i class="fas fa-trash-alt me-0"></i>
@@ -75,13 +75,27 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <div class="mb-3 d-flex flex-row justify-content-between">
+                            <div class="mb-3 d-flex flex-row justify-content-between mt-2">
                                 <label>
                                     Sub-Total
                                 </label>
                                 <label class="font-weight-bold">
-                                    000
+                                    {{ $subTotal }}
                                 </label>
+                            </div>
+                            <div class="mb-3 d-flex flex-row justify-content-between mt-2">
+                                <label>
+                                    Tax
+                                </label>
+                                <input type="number" class="form-control" wire:model='tax' style="width: 20%">
+                            </div>
+                            <div class="mb-3 d-flex flex-row justify-content-between mt-2">
+                                <h4>
+                                    Tax
+                                </h4>
+                                <h4 class="font-weight-bold">
+                                    {{ $total }}
+                                </h4>
                             </div>
                         </div>
                         <div class="mb-auto p-2 bd-highlight w-100">

@@ -16,6 +16,12 @@ class PointOfSaleLivewire extends Component
 
     public $totalItems = 0;
 
+    public $subTotal = 0;
+
+    public $tax = 0;
+
+    public $total = 0;
+
     public function mount()
     {
         $this->categories = Category::all();
@@ -49,16 +55,26 @@ class PointOfSaleLivewire extends Component
         $this->countItemsInCart();
     }
 
+    public function updatedTax($value)
+    {
+        $this->countItemsInCart();
+    }
+
     public function countItemsInCart()
     {
         $this->totalItems = 0;
+        $this->subTotal = 0;
         foreach($this->cart as $item){
             $this->totalItems += $item['count'];
+            $this->subTotal += $item['count'] * $item['price'];
         }
+
+        $this->total = ($this->tax ?: 0) + $this->subTotal;
     }
 
     public function clearOrders()
     {
+        $this->subTotal = 0;
         $this->totalItems = 0;
         $this->cart = [];
     }
@@ -68,7 +84,7 @@ class PointOfSaleLivewire extends Component
         $this->cart = array_filter($this->cart, function($k) use ($id) {
             return $k != $id;
         }, ARRAY_FILTER_USE_KEY);
-        
+
         $this->countItemsInCart();
     }
 }
