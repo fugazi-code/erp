@@ -91,7 +91,7 @@
                             </div>
                             <div class="mb-3 d-flex flex-row justify-content-between mt-2">
                                 <h4>
-                                    Tax
+                                    Total
                                 </h4>
                                 <h4 class="font-weight-bold">
                                     {{ $total }}
