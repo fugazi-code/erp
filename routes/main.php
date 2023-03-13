@@ -6,6 +6,7 @@ use App\Http\Livewire\CategoryLivewire;
 use App\Http\Livewire\CustomerLivewire;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\DashboardLivewire;
+use App\Http\Livewire\KuysLayoutLivewire;
 use App\Http\Livewire\OrganizationLivewire;
 use App\Http\Livewire\PointOfSaleLivewire;
 use App\Http\Livewire\ProductLivewire;
@@ -24,6 +25,7 @@ Route::prefix('products')->group(function(){
 
 Route::prefix('sales')->group(function(){
     Route::get('/list', SaleLivewire::class)->name('sales.list');
+    Route::get('/kuys-layout', KuysLayoutLivewire::class)->name('kuys.layout');
     Route::get('/pos', PointOfSaleLivewire::class)->name('sales.pos');
 });
 

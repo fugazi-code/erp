@@ -38,7 +38,7 @@
             </a>
             <ul>
                 <li class="{{ Request::is('sales/pos') ? 'active':'' }}">
-                    <a href="{{ route('sales.pos') }}">{{ __('POS')}}</a>
+                    <a href="{{ route('kuys.layout') }}">{{ __('POS')}}</a>
                 </li>
                 <li class="{{ Request::is('sales/list') ? 'active':'' }}">
                     <a href="{{ route('sales.list') }}">{{ __('Sale List')}}</a>
