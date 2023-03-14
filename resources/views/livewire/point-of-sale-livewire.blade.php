@@ -26,7 +26,7 @@
                                     <div class="col-md-3 mb-2  px-1">
                                         <a href="#"
                                             class="bg-white shadow btn btn-outline-link w-100 py-3 d-flex flex-column"
-                                            wire:click='addToCart({{ $product->id }}, {{ $product->selling_price  }}, "{{ $product->name }}", "{{ $product->sku }}")'>
+                                            wire:click='addToCart({{ $product->id }}, {{ $product->selling_price }}, "{{ $product->name }}", "{{ $product->sku }}")'>
                                             <h5>{{ $product->name }}</h5>
                                             <label class="text-muted">{{ $product->subCategory->name }}</label>
                                             <small class="mt-3">Price {{ $product->selling_price }}</small>
@@ -63,23 +63,24 @@
                                             <div class="font-">
                                                 {{ $item['name'] }}
                                             </div>
-                                            <div class="badge badge-round badge-success badge-lg">
-                                                {{ $item['sku'] }}
+                                            <div class="">
+                                                Code: {{ $item['sku'] }}
                                             </div>
                                         </div>
                                         <div class="col-3">x{{ $item['qty'] }}</div>
                                         <div class="col-3">{{ $item['price'] }}/{{ $item['sub_total'] }}</div>
                                         <div class="col-3 d-flex justify-content-center">
-                                              <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                            <div class="btn-group btn-group-sm" role="group"
+                                                aria-label="Basic example">
                                                 <button type="button" class="btn btn-primary"
                                                     wire:click='minusFromCart({{ $item['id'] }})'>
                                                     <i class="fas fa-minus me-1"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-danger" 
+                                                <button type="button" class="btn btn-danger"
                                                     wire:click='removeFromCart({{ $item['id'] }})'>
                                                     <i class="fas fa-trash-alt me-1"></i>
                                                 </button>
-                                              </div>
+                                            </div>
                                         </div>
                                         <hr class="m-1">
                                     </div>
@@ -104,17 +105,58 @@
                                     Total
                                 </h4>
                                 <h4 class="font-weight-bold">
-                                    {{ $total }}
+                                    {{ $subTotal + (int) $tax }}
                                 </h4>
                             </div>
                         </div>
-                        <div class="mb-auto p-2 bd-highlight w-100">
-                            <button class="btn btn-success btn-block" type="button">Checkout</button>
+                        <div class="mb-auto p-2 bd-highlight w-100 d-flex">
+                            <button class="btn btn-success w-100 mx-1" type="button" data-bs-toggle="modal"
+                                data-bs-target="#checkOutModal">Cash</button>
+                            <button class="btn btn-primary w-100 mx-1" type="button" data-bs-toggle="modal"
+                                data-bs-target="#stcpayModal">STC Pay</button>
                         </div>
                         <div class="mb-auto p-2 bd-highlight w-100">
-                            <button class="btn btn-outline-secondary" type="button" wire:click='voidOrder'>Void</button>
+                            <button class="btn btn-outline-secondary" type="button"
+                                wire:click='voidOrder'>Void</button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- checkOutModal -->
+    <div wire:ignore.self class="modal fade" id="checkOutModal" tabindex="-1" aria-labelledby="checkOutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="checkOutModalLabel">Cash</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Check-Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- stcpayModal -->
+    <div wire:ignore.self class="modal fade" id="stcpayModal" tabindex="-1" aria-labelledby="stcpayModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="stcpayModalLabel">STC Pay</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Check-Out</button>
                 </div>
             </div>
         </div>

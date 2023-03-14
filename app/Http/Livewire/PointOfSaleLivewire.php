@@ -119,10 +119,6 @@ class PointOfSaleLivewire extends Component
         $this->subTotal = Sale::find($this->sale->id)->orders->sum('sub_total');
     }
 
-    public function updatedTax($value)
-    {
-    }
-
     public function clearOrders()
     {
         Sale::find($this->sale->id)->orders()->delete();
