@@ -125,6 +125,9 @@ class PointOfSaleLivewire extends Component
 
     public function clearOrders()
     {
+        Sale::find($this->sale->id)->orders()->delete();
+        
+        $this->buildCart();
     }
 
     public function voidOrder()
