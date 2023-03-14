@@ -19,7 +19,9 @@ class Sale extends Model
         "discount",
         "shipping",
         "status",
-        "payment"
+        "payment",
+        "table",
+        "created_by"
     ];
 
     protected $with = ['customer', 'supplier'];

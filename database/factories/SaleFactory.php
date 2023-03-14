@@ -27,8 +27,9 @@ class SaleFactory extends Factory
             "order_tax" => $this->faker->numberBetween(0, 100),
             "discount" => $this->faker->numberBetween(0, 100),
             "shipping"=> $this->faker->numberBetween(0, 100),
-            "status"=> $this->faker->randomElement([SalesStatusEnum::COMPLETED, SalesStatusEnum::PENDING]),
+            "status"=> SalesStatusEnum::COMPLETED,
             "payment"=> $this->faker->randomElement([SalesPaymentEnum::PAID, SalesPaymentEnum::UNPAID]),
+            'created_by' => 1
         ];
     }
 }

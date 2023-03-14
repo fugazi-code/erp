@@ -1,5 +1,8 @@
 <div>
     <div class="row mt-5">
+        <div class="col-md-12 mb-3">
+            <a href="{{ route('kuys.layout') }}" type="button" class="btn btn-secondary">Back</a>
+        </div>
         <div class="col-md-7">
             <div class="d-flex flex-column">
                 <div>
@@ -100,6 +103,9 @@
                         </div>
                         <div class="mb-auto p-2 bd-highlight w-100">
                             <button class="btn btn-success btn-block" type="button">Checkout</button>
+                        </div>
+                        <div class="mb-auto p-2 bd-highlight w-100">
+                            <button class="btn btn-outline-secondary" type="button" wire:click='voidOrder'>Void</button>
                         </div>
                     </div>
                 </div>

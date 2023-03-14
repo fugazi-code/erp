@@ -23,6 +23,8 @@ return new class extends Migration
             $table->float('shipping');
             $table->string('status');
             $table->string('payment');
+            $table->string('table')->nullable();
+            $table->string('created_by');
             $table->softDeletes();
             $table->timestamps();
         });

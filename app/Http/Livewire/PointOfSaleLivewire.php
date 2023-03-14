@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Enums\SalesPaymentEnum;
+use App\Enums\SalesStatusEnum;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Sale;
 use Livewire\Component;
 
 class PointOfSaleLivewire extends Component
@@ -22,8 +25,33 @@ class PointOfSaleLivewire extends Component
 
     public $total = 0;
 
+    public $table;
+
+    public $sale;
+
+    protected $queryString = ['table'];
+
     public function mount()
     {
+        // Check if there is inprogress table
+        $this->sale = Sale::query()
+            ->where('table', $this->table)
+            ->where('status', SalesStatusEnum::INPROGRESS)
+            ->first();
+
+        if(!$this->sale) {
+            $this->sale = Sale::create([
+                "sale_date" => now(),
+                "order_tax" => 0,
+                "discount" => 0,
+                "shipping" => 0,
+                "status" => SalesStatusEnum::INPROGRESS,
+                "payment" => SalesPaymentEnum::UNPAID,
+                "table" => $this->table,
+                "created_by" => auth()->id()
+            ]);
+        }
+
         $this->categories = Category::all();
     }
 
@@ -86,5 +114,14 @@ class PointOfSaleLivewire extends Component
         }, ARRAY_FILTER_USE_KEY);
 
         $this->countItemsInCart();
+    }
+
+    public function voidOrder()
+    {
+        $sale = Sale::find($this->sale->id);
+        $sale->status = SalesStatusEnum::VOID;
+        $sale->save();
+
+        return redirect()->route('kuys.layout');
     }
 }
