@@ -7,6 +7,7 @@ use App\Enums\SalesStatusEnum;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Sale;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class PointOfSaleLivewire extends Component
@@ -69,51 +70,22 @@ class PointOfSaleLivewire extends Component
 
     public function addToCart($productId)
     {
-        if (isset($this->cart[$productId])) {
-            $this->cart[$productId]['count'] += 1;
-        } else {
-            $product = Product::find($productId)->toArray();
-            $this->cart[$productId] = [
-                'details' => $product,
-                'price' => $product['selling_price'],
-                'count' => 1
-            ];
-        }
 
-        $this->countItemsInCart();
     }
 
     public function updatedTax($value)
     {
-        $this->countItemsInCart();
-    }
 
-    public function countItemsInCart()
-    {
-        $this->totalItems = 0;
-        $this->subTotal = 0;
-        foreach($this->cart as $item){
-            $this->totalItems += $item['count'];
-            $this->subTotal += $item['count'] * $item['price'];
-        }
-
-        $this->total = ($this->tax ?: 0) + $this->subTotal;
     }
 
     public function clearOrders()
     {
-        $this->subTotal = 0;
-        $this->totalItems = 0;
-        $this->cart = [];
+
     }
 
     public function removeFromCart($id)
     {
-        $this->cart = array_filter($this->cart, function($k) use ($id) {
-            return $k != $id;
-        }, ARRAY_FILTER_USE_KEY);
 
-        $this->countItemsInCart();
     }
 
     public function voidOrder()

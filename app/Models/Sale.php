@@ -21,6 +21,7 @@ class Sale extends Model
         "status",
         "payment",
         "table",
+        "sub_total",
         "created_by"
     ];
 
