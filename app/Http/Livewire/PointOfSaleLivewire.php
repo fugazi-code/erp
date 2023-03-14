@@ -55,7 +55,7 @@ class PointOfSaleLivewire extends Component
         }
 
         $this->categories = Category::all();
-        $this->cart = $this->sale->orders->toArray();
+        $this->buildCart();
     }
 
     public function render()
@@ -90,14 +90,14 @@ class PointOfSaleLivewire extends Component
             ['sub_total' => $order->qty * $order->price]
         );
 
-        $this->cart = Sale::with('orders')->find($this->sale->id)->toArray()['orders'];
+        $this->buildCart();
     }
 
     public function removeFromCart($id)
     {
         OrderDetail::destroy($id);
 
-        $this->cart = Sale::with('orders')->find($this->sale->id)->toArray()['orders'];
+        $this->buildCart();
     }
 
     public function minusFromCart($id)
@@ -110,8 +110,13 @@ class PointOfSaleLivewire extends Component
             $order->sub_total = $decrement * $order->price;
             $order->save();
         }
+        $this->buildCart();
+    }
 
+    public function buildCart()
+    {
         $this->cart = Sale::with('orders')->find($this->sale->id)->toArray()['orders'];
+        $this->subTotal = Sale::find($this->sale->id)->orders->sum('sub_total');
     }
 
     public function updatedTax($value)

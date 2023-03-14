@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('payment');
             $table->string('table')->nullable();
             $table->string('created_by');
-            $table->float('subt_total')->nullable();
+            $table->float('sub_total')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
