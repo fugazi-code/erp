@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->string('product_id');
-            $table->float('qty');
+            $table->foreignId('product_id')->constrained('products');
+            $table->string('name')->nullable();
+            $table->string('sku')->nullable();
+            $table->float('qty')->default(0);
             $table->float('price');
-            $table->float('discount');
-            $table->float('tax');
-            $table->float('sub_total');
-            $table->string('orderable_id');
+            $table->float('sub_total')->default(0);
+            $table->integer('orderable_id');
             $table->string('orderable_type');
             $table->timestamps();
         });

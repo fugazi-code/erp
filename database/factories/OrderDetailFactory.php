@@ -17,17 +17,14 @@ class OrderDetailFactory extends Factory
      */
     public function definition()
     {
-        $price = $this->faker->numberBetween(1,500);
-        $discount = $this->faker->numberBetween(1,10);
-        $tax = $this->faker->numberBetween(1,10);
-
+        $product = Product::query()->inRandomOrder()->first();
         return [
-            'product_id' => Product::query()->inRandomOrder()->first()->id,
-            'qty' => 0,
-            'price' => $price,
-            'discount' => $discount,
-            'tax' => $tax,
-            'sub_total' => $price + $discount + $tax,
+            'product_id' => $product->id,
+            'name' => $product->name,
+            'sku' => $product->sku,
+            'qty' => 1,
+            'price' => $product->selling_price,
+            'sub_total' => $product->selling_price * 1,
         ];
     }
 }

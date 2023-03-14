@@ -1,7 +1,7 @@
 <div>
-    <div class="row mt-5">
+    <div class="row mt-1">
         <div class="col-md-12 mb-3">
-            <a href="{{ route('kuys.layout') }}" type="button" class="btn btn-secondary">Back</a>
+            <a href="{{ route('kuys.layout') }}" type="button" class="btn btn-secondary">Back to Tables</a>
         </div>
         <div class="col-md-7">
             <div class="d-flex flex-column">
@@ -26,7 +26,7 @@
                                     <div class="col-md-3 mb-2  px-1">
                                         <a href="#"
                                             class="bg-white shadow btn btn-outline-link w-100 py-3 d-flex flex-column"
-                                            wire:click='addToCart({{ $product->id }})'>
+                                            wire:click='addToCart({{ $product->id }}, {{ $product->selling_price  }}, "{{ $product->name }}", "{{ $product->sku }}")'>
                                             <h5>{{ $product->name }}</h5>
                                             <label class="text-muted">{{ $product->subCategory->name }}</label>
                                             <small class="mt-3">Price {{ $product->selling_price }}</small>
@@ -50,7 +50,7 @@
                             <div class="mb-3 d-flex flex-row justify-content-between">
                                 <div class="tag-box">
                                     <div class="dm-tag tag-secondary tag-transparented">
-                                        Total Items: {{ $totalItems }}
+                                        Total Items: {{ count($cart) }}
                                     </div>
                                 </div>
                                 <button wire:click='clearOrders' type="button"
@@ -61,38 +61,45 @@
                                     <div class="row w-100 mb-2">
                                         <div class="col-3 font-weight-bold">
                                             <div class="font-">
-                                                {{ $item['details']['name'] }}
+                                                {{ $item['name'] }}
                                             </div>
                                             <div class="badge badge-round badge-success badge-lg">
-                                                {{ $item['details']['sku'] }}
+                                                {{ $item['sku'] }}
                                             </div>
                                         </div>
-                                        <div class="col-3">x{{ $item['count'] }}</div>
-                                        <div class="col-3">{{ $item['price'] }}</div>
+                                        <div class="col-3">x{{ $item['qty'] }}</div>
+                                        <div class="col-3">{{ $item['price'] }}/{{ $item['sub_total'] }}</div>
                                         <div class="col-3 d-flex justify-content-center">
-                                            <button wire:click='removeFromCart({{ $id }})'
-                                                class="btn btn-default btn-squared color-danger btn-outline-danger border-0 py-2 px-auto">
-                                                <i class="fas fa-trash-alt me-0"></i>
-                                            </button>
+                                              <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-primary"
+                                                    wire:click='minusFromCart({{ $item['id'] }})'>
+                                                    <i class="fas fa-minus me-1"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger" 
+                                                    wire:click='removeFromCart({{ $item['id'] }})'>
+                                                    <i class="fas fa-trash-alt me-1"></i>
+                                                </button>
+                                              </div>
                                         </div>
+                                        <hr class="m-1">
                                     </div>
                                 @endforeach
                             </div>
-                            <div class="mb-3 d-flex flex-row justify-content-between mt-2">
-                                <label>
+                            <div class="mb-1 d-flex flex-row justify-content-between mt-3">
+                                <strong>
                                     Sub-Total
-                                </label>
+                                </strong>
                                 <label class="font-weight-bold">
                                     {{ $subTotal }}
                                 </label>
                             </div>
-                            <div class="mb-3 d-flex flex-row justify-content-between mt-2">
-                                <label>
+                            <div class="mb-1 d-flex flex-row justify-content-between">
+                                <strong>
                                     Tax
-                                </label>
+                                </strong>
                                 <input type="number" class="form-control" wire:model='tax' style="width: 20%">
                             </div>
-                            <div class="mb-3 d-flex flex-row justify-content-between mt-2">
+                            <div class="mb-3 d-flex flex-row justify-content-between">
                                 <h4>
                                     Total
                                 </h4>

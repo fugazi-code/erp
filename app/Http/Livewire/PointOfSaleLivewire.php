@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Enums\SalesPaymentEnum;
 use App\Enums\SalesStatusEnum;
 use App\Models\Category;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Sale;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -40,7 +41,7 @@ class PointOfSaleLivewire extends Component
             ->where('status', SalesStatusEnum::INPROGRESS)
             ->first();
 
-        if(!$this->sale) {
+        if (!$this->sale) {
             $this->sale = Sale::create([
                 "sale_date" => now(),
                 "order_tax" => 0,
@@ -54,6 +55,7 @@ class PointOfSaleLivewire extends Component
         }
 
         $this->categories = Category::all();
+        $this->cart = $this->sale->orders->toArray();
     }
 
     public function render()
@@ -68,24 +70,56 @@ class PointOfSaleLivewire extends Component
             ->get();
     }
 
-    public function addToCart($productId)
+    public function addToCart($productId, $price, $name, $sku)
     {
+        $sale = Sale::with('orders')->find($this->sale->id);
 
-    }
+        $order = $sale->orders()->updateOrCreate(
+            ['product_id' => $productId],
+            [
+                'product_id' => $productId,
+                'name' => $name,
+                'sku' => $sku,
+                'price' => $price,
+            ]
+        );
 
-    public function updatedTax($value)
-    {
+        $order->increment('qty', 1);
+        $sale->orders()->updateOrCreate(
+            ['product_id' => $productId],
+            ['sub_total' => $order->qty * $order->price]
+        );
 
-    }
-
-    public function clearOrders()
-    {
-
+        $this->cart = Sale::with('orders')->find($this->sale->id)->toArray()['orders'];
     }
 
     public function removeFromCart($id)
     {
+        OrderDetail::destroy($id);
 
+        $this->cart = Sale::with('orders')->find($this->sale->id)->toArray()['orders'];
+    }
+
+    public function minusFromCart($id)
+    {
+        $order = OrderDetail::find($id);
+        
+        $decrement = $order->qty - 1;
+        if($decrement > 0) {
+            $order->qty = $decrement;
+            $order->sub_total = $decrement * $order->price;
+            $order->save();
+        }
+
+        $this->cart = Sale::with('orders')->find($this->sale->id)->toArray()['orders'];
+    }
+
+    public function updatedTax($value)
+    {
+    }
+
+    public function clearOrders()
+    {
     }
 
     public function voidOrder()
