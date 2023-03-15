@@ -126,6 +126,7 @@
             </div>
         </div>
     </div>
+
     <!-- checkOutModal -->
     <div wire:ignore.self class="modal fade" id="checkOutModal" tabindex="-1" aria-labelledby="checkOutModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -139,10 +140,16 @@
                         <div class="col-md-12 mb-2">
                             <label>Recipient</label>
                             <input type="text" class="form-control" wire:model='checkout.email'>
+                            @error('checkout.email')
+                                Required
+                            @enderror
                         </div>
                         <div class="col-md-12 mb-4">
                             <label>Received</label>
                             <input type="text" class="form-control" wire:model='checkout.received'>
+                            @error('checkout.received')
+                                Required
+                            @enderror
                         </div>
                         <div class="col-md-12 mb-2">
                             <label>Total Amount: {{ $subTotal + (float) $tax }}</label>
@@ -158,7 +165,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" wire:click='generateQRCode'>Check-Out</button>
+                    <button type="button" class="btn btn-primary" wire:click='cashCheckOut'>Check-Out</button>
                 </div>
             </div>
         </div>
@@ -177,10 +184,16 @@
                         <div class="col-md-12 mb-2">
                             <label>Recipient</label>
                             <input type="text" class="form-control" wire:model='checkout.email'>
+                            @error('checkout.email')
+                                Required
+                            @enderror
                         </div>
                         <div class="col-md-12 mb-4">
                             <label>Reference no.</label>
                             <input type="text" class="form-control" wire:model='checkout.stc_ref_no'>
+                            @error('checkout.stc_ref_no')
+                                Required
+                            @enderror
                         </div>
                         <div class="col-md-12 mb-2">
                             <label>Total Amount: {{ $subTotal + (float) $tax }}</label>
@@ -221,4 +234,4 @@
             })
         </script>
     @endpush
-</div>
+</div>cash

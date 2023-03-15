@@ -112,9 +112,9 @@ class PointOfSaleLivewire extends Component
     public function minusFromCart($id)
     {
         $order = OrderDetail::find($id);
-        
+
         $decrement = $order->qty - 1;
-        if($decrement > 0) {
+        if ($decrement > 0) {
             $order->qty = $decrement;
             $order->sub_total = $decrement * $order->price;
             $order->save();
@@ -128,10 +128,11 @@ class PointOfSaleLivewire extends Component
         $this->subTotal = Sale::find($this->sale->id)->orders->sum('sub_total');
     }
 
+
     public function clearOrders()
     {
         Sale::find($this->sale->id)->orders()->delete();
-        
+
         $this->buildCart();
     }
 
@@ -151,16 +152,49 @@ class PointOfSaleLivewire extends Component
 
     public function cashCheckOut()
     {
+        $this->validate([
+            'checkout.received' => 'required',
+            'checkout.email' => 'required',
+        ]);
         $sale = Sale::find($this->sale->id);
         $sale->status = SalesStatusEnum::COMPLETED;
         $sale->payment = SalesPaymentEnum::PAID;
         $sale->save();
 
+        $this->checkout['sales_id'] = $this->sale->id;
+        $this->checkout['created_by'] = auth()->id();
         $this->checkout['transaction_type'] = 'Cash';
         $this->checkout['paid_amount'] = $this->subTotal + (float) ($this->tax ?? 0);
         $this->checkout['change'] = (float) ($this->checkout['received'] ?? 0) - $this->checkout['paid_amount'];
 
         PaymentHistory::create($this->checkout);
+
+        $this->generateQRCode();
+
+        return redirect()->route('kuys.layout');
+    }
+
+    public function stcCheckOut()
+    {
+        $this->validate([
+            'checkout.stc_ref_no' => 'required',
+            'checkout.email' => 'required',
+        ]);
+        
+        $sale = Sale::find($this->sale->id);
+        $sale->status = SalesStatusEnum::COMPLETED;
+        $sale->payment = SalesPaymentEnum::PAID;
+        $sale->save();
+
+        $this->checkout['sales_id'] = $this->sale->id;
+        $this->checkout['created_by'] = auth()->id();
+        $this->checkout['transaction_type'] = 'STC';
+        $this->checkout['paid_amount'] = $this->subTotal + (float) ($this->tax ?? 0);
+        $this->checkout['change'] = (float) ($this->checkout['received'] ?? 0) - $this->checkout['paid_amount'];
+
+        PaymentHistory::create($this->checkout);
+
+        $this->generateQRCode();
 
         return redirect()->route('kuys.layout');
     }
@@ -173,8 +207,8 @@ class PointOfSaleLivewire extends Component
             new ImagickImageBackEnd()
         );
         $writer = new Writer($renderer);
-        $writer->writeFile(route('receipt', ['id' => $encrypt]),  $encrypt. '.png');
+        $writer->writeFile(route('receipt', ['id' => $encrypt]),  $encrypt . '.png');
 
-        Mail::to($this->checkout['email'])->send(new ElectornicReceiptMail($encrypt. '.png'));
+        Mail::to($this->checkout['email'])->send(new ElectornicReceiptMail($encrypt . '.png'));
     }
 }
