@@ -4,12 +4,19 @@ namespace App\Http\Livewire;
 
 use App\Enums\SalesPaymentEnum;
 use App\Enums\SalesStatusEnum;
+use App\Mail\ElectornicReceiptMail;
 use App\Models\Category;
 use App\Models\OrderDetail;
+use App\Models\PaymentHistory;
 use App\Models\Product;
 use App\Models\Sale;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
+use Illuminate\Support\Facades\Mail;
 
 class PointOfSaleLivewire extends Component
 {
@@ -30,6 +37,8 @@ class PointOfSaleLivewire extends Component
     public $table;
 
     public $sale;
+
+    public $checkout;
 
     protected $queryString = ['table'];
 
@@ -133,5 +142,39 @@ class PointOfSaleLivewire extends Component
         $sale->save();
 
         return redirect()->route('kuys.layout');
+    }
+
+    public function checkoutResetInput()
+    {
+        $this->checkout = [];
+    }
+
+    public function cashCheckOut()
+    {
+        $sale = Sale::find($this->sale->id);
+        $sale->status = SalesStatusEnum::COMPLETED;
+        $sale->payment = SalesPaymentEnum::PAID;
+        $sale->save();
+
+        $this->checkout['transaction_type'] = 'Cash';
+        $this->checkout['paid_amount'] = $this->subTotal + (float) ($this->tax ?? 0);
+        $this->checkout['change'] = (float) ($this->checkout['received'] ?? 0) - $this->checkout['paid_amount'];
+
+        PaymentHistory::create($this->checkout);
+
+        return redirect()->route('kuys.layout');
+    }
+
+    public function generateQRCode()
+    {
+        $encrypt = encrypt($this->sale->id);
+        $renderer = new ImageRenderer(
+            new RendererStyle(400),
+            new ImagickImageBackEnd()
+        );
+        $writer = new Writer($renderer);
+        $writer->writeFile(route('receipt', ['id' => $encrypt]),  $encrypt. '.png');
+
+        Mail::to($this->checkout['email'])->send(new ElectornicReceiptMail($encrypt. '.png'));
     }
 }

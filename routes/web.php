@@ -25,4 +25,3 @@ Route::group(['middleware'=>'guest'],function(){
 
 Route::post('/logout',[AuthController::class,'logout'])->name('logout')->middleware('auth');
 
-Route::get('/home', DashboardLivewire::class)->name('home');

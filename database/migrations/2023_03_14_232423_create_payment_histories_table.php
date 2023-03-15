@@ -21,6 +21,8 @@ return new class extends Migration
             $table->float('received')->nullable();
             $table->float('change')->nullable();
             $table->string('stc_ref_no')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

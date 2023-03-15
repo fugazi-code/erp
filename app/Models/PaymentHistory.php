@@ -14,6 +14,8 @@ class PaymentHistory extends Model
         'paid_amount',
         'received',
         'change',
-        'stc_ref_no'
+        'stc_ref_no',
+        'created_by',
+        'email',
     ];
 }

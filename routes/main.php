@@ -10,6 +10,7 @@ use App\Http\Livewire\KuysLayoutLivewire;
 use App\Http\Livewire\OrganizationLivewire;
 use App\Http\Livewire\PointOfSaleLivewire;
 use App\Http\Livewire\ProductLivewire;
+use App\Http\Livewire\ReceiptLivewire;
 use App\Http\Livewire\SaleLivewire;
 use App\Http\Livewire\SubCategoryLivewire;
 use App\Http\Livewire\SupplierLivewire;
@@ -42,3 +43,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/organizations', OrganizationLivewire::class)->name('users.organizations');
     });
 });
+
+Route::get('/receipt', ReceiptLivewire::class)->name('receipt');

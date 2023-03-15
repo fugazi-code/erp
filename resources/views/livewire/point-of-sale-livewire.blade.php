@@ -111,8 +111,10 @@
                         </div>
                         <div class="mb-auto p-2 bd-highlight w-100 d-flex">
                             <button class="btn btn-success w-100 mx-1" type="button" data-bs-toggle="modal"
+                            wire:click='checkoutResetInput'
                                 data-bs-target="#checkOutModal">Cash</button>
                             <button class="btn btn-primary w-100 mx-1" type="button" data-bs-toggle="modal"
+                                wire:click='checkoutResetInput'
                                 data-bs-target="#stcpayModal">STC Pay</button>
                         </div>
                         <div class="mb-auto p-2 bd-highlight w-100">
@@ -133,11 +135,30 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <div class="row">
+                        <div class="col-md-12 mb-2">
+                            <label>Recipient</label>
+                            <input type="text" class="form-control" wire:model='checkout.email'>
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <label>Received</label>
+                            <input type="text" class="form-control" wire:model='checkout.received'>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <label>Total Amount: {{ $subTotal + (float) $tax }}</label>
+                        </div>
+                        <div class="col-md-12">
+                            @if ((float) ($checkout['received'] ?? 0) - ($subTotal + (float) $tax) >= 0)
+                                <label>Change: {{ (float) ($checkout['received'] ?? 0) - ($subTotal + (float) $tax)  }}</label>
+                            @else
+                                <label>Change: Input valid Received Amount</label>
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Check-Out</button>
+                    <button type="button" class="btn btn-primary" wire:click='generateQRCode'>Check-Out</button>
                 </div>
             </div>
         </div>
@@ -152,11 +173,23 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <div class="row">
+                        <div class="col-md-12 mb-2">
+                            <label>Recipient</label>
+                            <input type="text" class="form-control" wire:model='checkout.email'>
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <label>Reference no.</label>
+                            <input type="text" class="form-control" wire:model='checkout.stc_ref_no'>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <label>Total Amount: {{ $subTotal + (float) $tax }}</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Check-Out</button>
+                    <button type="button" class="btn btn-primary" wire:click='stcCheckOut'>Check-Out</button>
                 </div>
             </div>
         </div>
