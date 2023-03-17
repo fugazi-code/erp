@@ -18,9 +18,9 @@ return new class extends Migration
             $table->integer('customer_id')->nullable();
             $table->integer('supplier_id')->nullable();
             $table->date('sale_date')->nullable();
-            $table->float('order_tax');
-            $table->float('discount');
-            $table->float('shipping');
+            $table->float('order_tax')->nullable();
+            $table->float('discount')->nullable();
+            $table->float('shipping')->nullable();
             $table->string('status');
             $table->string('payment');
             $table->string('table')->nullable();

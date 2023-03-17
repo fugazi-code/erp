@@ -19,11 +19,6 @@ class CategoryLivewire extends Component
         $this->dispatchBrowserEvent('open-modal-crudModal');
     }
 
-    public function render()
-    {
-        return view('livewire.category-livewire');
-    }
-
     public function update()
     {
         Category::updateOrCreate(
@@ -58,5 +53,10 @@ class CategoryLivewire extends Component
         $this->emit('refreshDatatable');
         $this->alert('success', 'Added Successfully!');
         $this->dispatchBrowserEvent('close-modal-crudModal');
+    }
+
+    public function render()
+    {
+        return view('livewire.category-livewire');
     }
 }

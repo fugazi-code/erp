@@ -22,22 +22,12 @@ class SubCategoriesTable extends DataTableComponentCustom
     {
         return [
             Column::make("Id", "id")
-                ->sortable()
-                ->isHidden(),
+                ->sortable(),
             Column::make("Name", "name")
                 ->searchable()
                 ->sortable(),
             Column::make("Category", "category.name")
                 ->searchable()
-                ->sortable(),
-            Column::make("Description", "description")
-                ->searchable()
-                ->sortable(),
-            Column::make("Created by", "createdBy.name")
-                ->sortable(),
-            Column::make("Created at", "created_at")
-                ->sortable(),
-            Column::make("Updated at", "updated_at")
                 ->sortable(),
         ];
     }
