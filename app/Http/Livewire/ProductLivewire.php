@@ -34,8 +34,8 @@ class ProductLivewire extends Component
 
     public function render()
     {
-        if (isset($this->detail['category'])) {
-            $this->subCategories = SubCategory::where('category_id', $this->detail['category']['id'])
+        if (isset($this->detail['category_id'])) {
+            $this->subCategories = SubCategory::where('category_id', $this->detail['category_id'])
                 ->get()
                 ->toArray();
         }
@@ -69,13 +69,16 @@ class ProductLivewire extends Component
         $this->detail = [];
         $this->emit('refreshDatatable');
         $this->alert('success', 'Product is added!');
+        $this->dispatchBrowserEvent('close-modal-crudModal');
     }
 
     public function delete()
     {
         Product::find($this->detail['id'])->delete();
+
         $this->emit('refreshDatatable');
         session()->flash('message', 'Product Deleted Successfully.');
+        $this->dispatchBrowserEvent('close-modal-crudModal');
         $this->detail = [];
     }
 
