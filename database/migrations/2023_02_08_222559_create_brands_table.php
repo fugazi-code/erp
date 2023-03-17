@@ -20,6 +20,12 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('sub_category_id')->constrained('sub_categories');
+            $table->foreignId('brand_id')->constrained('brands');
+        });
     }
 
     /**

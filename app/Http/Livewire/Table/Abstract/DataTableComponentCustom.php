@@ -15,8 +15,6 @@ abstract class DataTableComponentCustom extends DataTableComponent
         $this->setTrAttributes(function ($row, $index) {
             return [
                 'class' => 'bg-gray-200',
-                'data-bs-toggle' => "modal",
-                'data-bs-target' => "#crudModal",
                 'wire:click' => "bind({$row->id})"
             ];
         });

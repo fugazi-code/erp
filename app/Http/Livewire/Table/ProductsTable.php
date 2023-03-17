@@ -23,7 +23,10 @@ class ProductsTable extends DataTableComponentCustom
     public function columns(): array
     {
         return [
-            Column::make("Id", "id")->sortable()->isHidden(),
+            Column::make("Id", "id")->sortable(),
+            Column::make("Name", "name")
+                ->searchable()
+                ->sortable(),
             Column::make("Category", "category.name")
                 ->searchable()
                 ->sortable(),
@@ -33,25 +36,14 @@ class ProductsTable extends DataTableComponentCustom
             Column::make("Brand", "brand.name")
                 ->searchable()
                 ->sortable(),
-            Column::make("Name", "name")
-                ->searchable()
-                ->sortable(),
             Column::make("Sku", "sku")
                 ->searchable()
                 ->sortable(),
-            Column::make("Price", "selling_price")
+            Column::make("Selling Price", "selling_price")
                 ->sortable(),
-            Column::make("Price", "vendor_price")
-                ->sortable(),
-            Column::make("Unit", "unit")
-                ->sortable(),
-            Column::make("Qty", "qty")
+            Column::make("Vendor Price", "vendor_price")
                 ->sortable(),
             Column::make("Created by", "createdBy.name")
-                ->sortable(),
-            Column::make("Created at", "created_at")
-                ->sortable(),
-            Column::make("Updated at", "updated_at")
                 ->sortable(),
         ];
     }

@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Brand;
 use App\Models\Product;
 use Livewire\Component;
+use App\Models\Category;
+use App\Models\SubCategory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class ProductLivewire extends Component
@@ -12,71 +15,96 @@ class ProductLivewire extends Component
 
     public array $detail = [];
 
+    public $categories;
+
+    public $subCategories;
+
+    public $brands;
+
     protected $listeners = ['bind'];
-   
+
+    public function mount()
+    {
+        $this->categories = Category::select(['id', 'name'])
+            ->with('subCategory')
+            ->get()
+            ->toArray();
+        $this->brands = Brand::select(['id', 'name'])->get()->toArray();
+    }
+
     public function render()
     {
+        if (isset($this->detail['category'])) {
+            $this->subCategories = SubCategory::where('category_id', $this->detail['category']['id'])
+                ->get()
+                ->toArray();
+        }
+
         return view('livewire.product-livewire');
     }
 
     public function store()
     {
-        $validatedDate = $this->validate([
+         $this->validate([
             'detail.name' => 'required',
-            'detail.category' => 'required',
-            'detail.sub-category' => 'required',
-            'detail.brand' => 'required',
+            'detail.category_id' => 'required',
+            'detail.sub_category_id' => 'required',
+            'detail.brand_id' => 'required',
             'detail.sku' => 'required',
-            'detail.selling-price' => 'required',
-            'detail.vendor-price' => 'required',
-            'detail.unit' => 'required',
-            'detail.qty' => 'required',
+            'detail.selling_price' => 'required',
+            'detail.vendor_price' => 'required',
         ]);
-  
-        Product::create($validatedDate);
-  
+
+        Product::create([
+            'category_id' => $this->detail['category_id'],
+            'sub_category_id' => $this->detail['sub_category_id'],
+            'brand_id' => $this->detail['brand_id'],
+            'name' => $this->detail['name'],
+            'sku' => $this->detail['sku'],
+            'selling_price' => $this->detail['selling_price'],
+            'vendor_price' => $this->detail['vendor_price'],
+            'created_by' => auth()->id()
+        ]);
+
+        $this->detail = [];
         $this->emit('refreshDatatable');
         $this->alert('success', 'Product is added!');
     }
 
-    public function edit($productId)
+    public function delete()
     {
-        $product = Product::findOrFail($productId);
-        $this->productId = $productId;
-        $this->category = $product->category;
-        $this->description = $product->description;
-  
-        $this->updateMode = true;
+        Product::find($this->detail['id'])->delete();
+        $this->emit('refreshDatatable');
+        session()->flash('message', 'Product Deleted Successfully.');
+        $this->detail = [];
     }
 
-    public function cancel()
+    public function bind($id)
     {
-        $this->updateMode = false;
-        $this->resetInputFields();
+        $this->detail = Product::with(['category', 'subCategory', 'brand'])
+            ->find($id)
+            ->toArray();
+        $this->dispatchBrowserEvent('open-modal-crudModal');
     }
 
     public function update()
     {
-        $validatedDate = $this->validate([
-            'name' => 'required',
-            'category' => 'required',
-            'description' => 'required',
-        ]);
-  
-        $product = Product::find($this->productId);
-        $product->update([
-            'name' => $this->name,
-            'category' => $this->category,
-            'description' => $this->description,
-        ]);
-  
-        $this->emit('refreshDatatable');
-        $this->alert('success', 'Product is updated!');
-    }
+        Product::updateOrCreate(
+            ['id' => $this->detail['id']],
+            [
+                'category_id' => $this->detail['category_id'],
+                'sub_category_id' => $this->detail['sub_category_id'],
+                'brand_id' => $this->detail['brand_id'],
+                'name' => $this->detail['name'],
+                'sku' => $this->detail['sku'],
+                'selling_price' => $this->detail['selling_price'],
+                'vendor_price' => $this->detail['vendor_price'],
+            ]
+        );
 
-    public function delete($productId)
-    {
-        Product::find($productId)->delete();
-        session()->flash('message', 'Product Deleted Successfully.');
+        session()->flash('message', 'Product Updated Successfully.');
+        $this->detail = [];
+        $this->emit('refreshDatatable');
+        $this->dispatchBrowserEvent('close-modal-crudModal');
     }
 }
