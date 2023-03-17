@@ -20,21 +20,11 @@ class CategoriesTable extends DataTableComponentCustom
     public function columns(): array
     {
         return [
-            Column::make("Id", "id")->sortable()->isHidden(),
+            Column::make("Id", "id")->sortable(),
             Column::make("Name", "name")
                 ->searchable()
                 ->sortable(),
-            Column::make("Code", "code")
-                ->searchable()
-                ->sortable(),
-            Column::make("Description", "description")
-                ->searchable()
-                ->sortable(),
             Column::make("Created by", "createdBy.name")
-                ->sortable(),
-            Column::make("Created at", "created_at")
-                ->sortable(),
-            Column::make("Updated at", "updated_at")
                 ->sortable(),
         ];
     }

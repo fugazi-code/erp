@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('category_id');
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('created_by');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
